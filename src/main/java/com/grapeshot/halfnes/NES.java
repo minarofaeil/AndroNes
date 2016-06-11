@@ -11,7 +11,6 @@ import com.grapeshot.halfnes.ui.ControllerInterface;
 import com.grapeshot.halfnes.ui.FrameLimiterImpl;
 import com.grapeshot.halfnes.ui.FrameLimiterInterface;
 import com.grapeshot.halfnes.ui.GUIInterface;
-import javafx.application.Platform;
 
 public class NES {
 
@@ -211,7 +210,7 @@ public class NES {
         //System.Exit is very dirty and does NOT let the delete on exit handler
         //fire so the natives stick around...
         shutdown = true;
-        Platform.exit();
+        System.exit(0);
     }
 
     public synchronized void reset() {
