@@ -36,6 +36,10 @@ public class NES {
     // Pro Action Replay device
     private ActionReplay actionReplay;
 
+    public NES(GUIInterface gui) {
+        this(gui, null);
+    }
+
     public NES(GUIInterface gui, AudioOutInterfaceFactory audioOutInterfaceFactory) {
         if (gui != null) {
             this.gui = gui;
