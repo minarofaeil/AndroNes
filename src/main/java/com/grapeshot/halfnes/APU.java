@@ -63,14 +63,20 @@ public class APU {
             sweepreload = {false, false};
     private final int[] sweepperiod = {15, 15}, sweepshift = {0, 0}, sweeppos = {0, 0};
     private int cyclesperframe;
+    private AudioOutInterfaceFactory audioOutInterfaceFactory;
     private AudioOutInterface ai;
 
     public APU(final NES nes, final CPU cpu, final CPURAM cpuram) {
+        this(nes, cpu, cpuram, null);
+    }
+
+    public APU(final NES nes, final CPU cpu, final CPURAM cpuram, AudioOutInterfaceFactory audioOutInterfaceFactory) {
         this.samplerate = 1; //just in case we can't init audio
         //then init the audio stream
         this.nes = nes;
         this.cpu = cpu;
         this.cpuram = cpuram;
+        this.audioOutInterfaceFactory = audioOutInterfaceFactory;
         setParameters();
     }
 
@@ -98,7 +104,13 @@ public class APU {
         if (ai != null) {
             ai.destroy();
         }
-        ai = new SwingAudioImpl(nes, samplerate, tvtype);
+
+        if (audioOutInterfaceFactory != null) {
+            ai = audioOutInterfaceFactory.createAudioOutInterface();
+        } else {
+            ai = new SwingAudioImpl(nes, samplerate, tvtype);
+        }
+
         if (PrefsSingleton.get().getBoolean("showScope", false)) {
             ai = new Oscilloscope(ai);
         }
