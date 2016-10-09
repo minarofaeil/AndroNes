@@ -4,6 +4,8 @@
  */
 package com.grapeshot.halfnes;
 
+import com.grapeshot.halfnes.audio.AudioOutInterface;
+import com.grapeshot.halfnes.audio.AudioOutInterfaceFactory;
 import com.grapeshot.halfnes.cheats.ActionReplay;
 import com.grapeshot.halfnes.mappers.BadMapperException;
 import com.grapeshot.halfnes.mappers.Mapper;
@@ -21,6 +23,7 @@ public class NES {
     private CPURAM cpuram;
     private PPU ppu;
     private GUIInterface gui;
+    private AudioOutInterfaceFactory audioOutInterfaceFactory;
     private ControllerInterface controller1, controller2;
     final public static String VERSION = "062-dev";
     public boolean runEmulation = false;
@@ -33,12 +36,14 @@ public class NES {
     // Pro Action Replay device
     private ActionReplay actionReplay;
 
-    public NES(GUIInterface gui) {
+    public NES(GUIInterface gui, AudioOutInterfaceFactory audioOutInterfaceFactory) {
         if (gui != null) {
             this.gui = gui;
             gui.setNES(this);
             gui.run();
         }
+
+        this.audioOutInterfaceFactory = audioOutInterfaceFactory;
     }
 
     public CPURAM getCPURAM() {
@@ -154,7 +159,7 @@ public class NES {
             actionReplay = new ActionReplay(cpuram);
             cpu = mapper.cpu;
             ppu = mapper.ppu;
-            apu = new APU(this, cpu, cpuram);
+            apu = new APU(this, cpu, cpuram, audioOutInterfaceFactory);
             cpuram.setAPU(apu);
             cpuram.setPPU(ppu);
             curRomPath = filename;
