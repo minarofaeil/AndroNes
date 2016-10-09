@@ -2,7 +2,9 @@ package com.online_brain.tvnes;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class HalfNesAndroidUI extends SurfaceView implements GUIInterface {
 
 	@Override
 	public void setFrame(int[] frame, int[] bgcolor, boolean dotcrawl) {
-
+		Log.d("HalfNESAndroid", "setFrame() is called");
 	}
 
 	@Override
@@ -55,13 +57,23 @@ public class HalfNesAndroidUI extends SurfaceView implements GUIInterface {
 
 	@Override
 	public void run() {
+		Log.d("HalfNESAndroid", "run() is called");
 	}
 
 	@Override
 	public void render() {
+		Log.d("HalfNESAndroid", "render() is called");
 	}
 
 	@Override
 	public void loadROMs(String path) {
+		Log.d("HalfNESAndroid", "loadRom() is called with: " + path);
+		nes.loadROM(path);
+	}
+
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+		Log.d("HalfNESAndroid", "onDraw() is called");
 	}
 }
