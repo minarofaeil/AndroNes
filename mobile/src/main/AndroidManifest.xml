@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="com.online_brain.tvnes" >
+	package="com.online_brain.andrones" >
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme"
 	    tools:ignore="AllowBackup,GoogleAppIndexingWarning"
 	    >
-        <activity android:name=".GamePlayActivity" >
+        <activity android:name="com.online_brain.andrones.GamePlayActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

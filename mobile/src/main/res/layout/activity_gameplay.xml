@@ -5,10 +5,10 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context="com.online_brain.tvnes.GamePlayActivity"
+	tools:context="com.online_brain.andrones.GamePlayActivity"
 	>
 
-	<com.online_brain.tvnes.HalfNesAndroidUI
+	<com.online_brain.andrones.AndroidUI
 		android:id="@+id/game_play_view"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

@@ -213,7 +213,6 @@ public class NES {
         //System.Exit is very dirty and does NOT let the delete on exit handler
         //fire so the natives stick around...
         shutdown = true;
-        System.exit(0);
     }
 
     public synchronized void reset() {

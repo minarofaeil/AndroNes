@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">TVNes</string>
+    <string name="app_name">AndroNES</string>
     <string name="unable_to_load_rom">Unable to load specified rom!</string>
 </resources>

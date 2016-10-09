@@ -4,15 +4,15 @@
  */
 package com.grapeshot.halfnes;
 
-import static com.grapeshot.halfnes.PrefsSingleton.get;
 import com.grapeshot.halfnes.mappers.Mapper;
-import com.grapeshot.halfnes.ui.DebugUI;
 import com.grapeshot.halfnes.ui.GUIInterface;
-import static com.grapeshot.halfnes.utils.reverseByte;
+
 import java.awt.image.BufferedImage;
-import static java.awt.image.BufferedImage.TYPE_INT_BGR;
 import java.util.Arrays;
-import static java.util.Arrays.fill;
+
+
+import static com.grapeshot.halfnes.PrefsSingleton.get;
+import static com.grapeshot.halfnes.utils.reverseByte;
 import static java.util.Arrays.fill;
 
 public class PPU {
@@ -37,7 +37,6 @@ public class PPU {
             vblankflag, sprite0hit, spriteoverflow;
     private int emph;
     public final int[] pal;
-    private DebugUI debuggui;
     private int vraminc = 1;
     private final static boolean PPUDEBUG = get().getBoolean("ntView", false);
     private BufferedImage nametableView;
@@ -63,11 +62,11 @@ public class PPU {
          */
         this.mapper = mapper;
         fill(OAM, 0xff);
-        if (PPUDEBUG) {
-            nametableView = new BufferedImage(512, 480, TYPE_INT_BGR);
-            debuggui = new DebugUI(512, 480);
-            debuggui.run();
-        }
+//        if (PPUDEBUG) {
+//            nametableView = new BufferedImage(512, 480, TYPE_INT_BGR);
+//            debuggui = new DebugUI(512, 480);
+//            debuggui.run();
+//        }
         setParameters();
     }
 
@@ -786,7 +785,7 @@ public class PPU {
 //                }
 //            }
 //        }
-        debuggui.setFrame(nametableView);
+//        debuggui.setFrame(nametableView);
         //debugbuff.clear();
     }
 

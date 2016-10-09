@@ -4,7 +4,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
     defaultConfig {
-        applicationId "com.online_brain.tvnes"
+        applicationId "com.online_brain.andrones"
         minSdkVersion 21
         targetSdkVersion 24
         versionCode 1
@@ -15,6 +15,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig android.buildTypes.debug.signingConfig
         }
     }
 }

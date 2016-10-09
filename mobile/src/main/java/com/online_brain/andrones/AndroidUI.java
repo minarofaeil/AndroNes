@@ -1,4 +1,4 @@
-package com.online_brain.tvnes;
+package com.online_brain.andrones;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -15,23 +15,26 @@ import com.grapeshot.halfnes.ui.GUIInterface;
  * @author Mina Rofaeil
  */
 
-public class HalfNesAndroidUI extends SurfaceView implements GUIInterface {
+public class AndroidUI extends SurfaceView implements GUIInterface {
+	private int frames;
+	private long time;
+
 	private NES nes;
 
-	public HalfNesAndroidUI(Context context) {
+	public AndroidUI(Context context) {
 		super(context);
 	}
 
-	public HalfNesAndroidUI(Context context, AttributeSet attrs) {
+	public AndroidUI(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public HalfNesAndroidUI(Context context, AttributeSet attrs, int defStyleAttr) {
+	public AndroidUI(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
 	@TargetApi(21)
-	public HalfNesAndroidUI(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	public AndroidUI(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
@@ -47,7 +50,15 @@ public class HalfNesAndroidUI extends SurfaceView implements GUIInterface {
 
 	@Override
 	public void setFrame(int[] frame, int[] bgcolor, boolean dotcrawl) {
-		Log.d("HalfNESAndroid", "setFrame() is called");
+//		Log.d("HalfNESAndroid", "setFrame() is called");
+		frames++;
+		long now = System.currentTimeMillis();
+
+		if (now - time >= 1000) {
+			Log.d("HalfNESAndroid", "Frame rate: " + (frames / ((now - time) / 1000.0)));
+			time = now;
+			frames = 0;
+		}
 	}
 
 	@Override
@@ -69,6 +80,8 @@ public class HalfNesAndroidUI extends SurfaceView implements GUIInterface {
 	public void loadROMs(String path) {
 		Log.d("HalfNESAndroid", "loadRom() is called with: " + path);
 		nes.loadROM(path);
+		frames = 0;
+		time = System.currentTimeMillis();
 	}
 
 	@Override

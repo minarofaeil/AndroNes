@@ -1,4 +1,4 @@
-package com.online_brain.tvnes;
+package com.online_brain.andrones;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import java.io.InputStream;
 public class GamePlayActivity extends Activity implements Callback {
 
     private NES nes;
-	private HalfNesAndroidUI halfNesAndroidUI;
+	private AndroidUI androidUI;
 	private AndroidController controller1;
 	private AndroidController controller2;
 
@@ -27,10 +27,10 @@ public class GamePlayActivity extends Activity implements Callback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameplay);
 
-	    halfNesAndroidUI = (HalfNesAndroidUI) findViewById(R.id.game_play_view);
-	    SurfaceHolder surfaceHolder = halfNesAndroidUI.getHolder();
+	    androidUI = (AndroidUI) findViewById(R.id.game_play_view);
+	    SurfaceHolder surfaceHolder = androidUI.getHolder();
 	    surfaceHolder.addCallback(this);
-	    nes = new NES(halfNesAndroidUI, new AndroidAudioOutFactory());
+	    nes = new NES(androidUI, new AndroidAudioOutFactory());
 		controller1 = new AndroidController();
 		controller2 = new AndroidController();
 		nes.setControllers(controller1, controller2);

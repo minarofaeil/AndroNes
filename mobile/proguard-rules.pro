@@ -15,3 +15,12 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontwarn java.awt.**
+-dontwarn javax.swing.**
+-dontwarn javax.sound.**
+-dontwarn javax.accessibility.**
+
+-dontwarn com.grapeshot.halfnes.ui.DebugUI**
+-dontwarn com.grapeshot.halfnes.Twiddler**
+-dontwarn com.grapeshot.halfnes.cheats.ActionReplayGui**
