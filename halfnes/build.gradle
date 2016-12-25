@@ -1,7 +1,13 @@
-apply plugin: 'java'
+apply plugin: 'com.android.library'
 
-targetCompatibility = '1.7'
-sourceCompatibility = '1.7'
+android {
+	compileSdkVersion 24
+	buildToolsVersion '25.0.0'
+	defaultConfig {
+		minSdkVersion 21
+		targetSdkVersion 24
+	}
+}
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])

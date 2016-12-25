@@ -4,10 +4,11 @@
  */
 package com.grapeshot.halfnes;
 
+import android.graphics.Bitmap;
+
 import com.grapeshot.halfnes.mappers.Mapper;
 import com.grapeshot.halfnes.ui.GUIInterface;
 
-import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 
@@ -39,7 +40,7 @@ public class PPU {
     public final int[] pal;
     private int vraminc = 1;
     private final static boolean PPUDEBUG = get().getBoolean("ntView", false);
-    private BufferedImage nametableView;
+    private Bitmap nametableView;
     private final int[] bgcolors = new int[256];
     private int openbus = 0; //the last value written to the PPU
     private int nextattr;
@@ -743,30 +744,34 @@ public class PPU {
     private void debugDraw() {
         for (int i = 0; i < 32; ++i) {
             for (int j = 0; j < 30; ++j) {
-                nametableView.setRGB(i * 8, j * 8, 8, 8,
+                nametableView.setPixels(
                         debugGetTile(mapper.ppuRead(0x2000 + i + 32 * j) * 16
-                                + (bgpattern ? 0x1000 : 0)), 0, 8);
+                                + (bgpattern ? 0x1000 : 0)), 0, 8,
+                    i * 8, j * 8, 8, 8);
             }
         }
         for (int i = 0; i < 32; ++i) {
             for (int j = 0; j < 30; ++j) {
-                nametableView.setRGB(i * 8 + 255, j * 8, 8, 8,
+                nametableView.setPixels(
                         debugGetTile(mapper.ppuRead(0x2400 + i + 32 * j) * 16
-                                + (bgpattern ? 0x1000 : 0)), 0, 8);
+                                + (bgpattern ? 0x1000 : 0)), 0, 8,
+                    i * 8 + 255, j * 8, 8, 8);
             }
         }
         for (int i = 0; i < 32; ++i) {
             for (int j = 0; j < 30; ++j) {
-                nametableView.setRGB(i * 8, j * 8 + 239, 8, 8,
+                nametableView.setPixels(
                         debugGetTile(mapper.ppuRead(0x2800 + i + 32 * j) * 16
-                                + (bgpattern ? 0x1000 : 0)), 0, 8);
+                                + (bgpattern ? 0x1000 : 0)), 0, 8,
+                    i * 8, j * 8 + 239, 8, 8);
             }
         }
         for (int i = 0; i < 32; ++i) {
             for (int j = 0; j < 30; ++j) {
-                nametableView.setRGB(i * 8 + 255, j * 8 + 239, 8, 8,
+                nametableView.setPixels(
                         debugGetTile(mapper.ppuRead(0x2C00 + i + 32 * j) * 16
-                                + (bgpattern ? 0x1000 : 0)), 0, 8);
+                                + (bgpattern ? 0x1000 : 0)), 0, 8,
+                    i * 8 + 255, j * 8 + 239, 8, 8);
             }
         }
 

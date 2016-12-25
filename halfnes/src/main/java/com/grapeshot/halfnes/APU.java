@@ -4,9 +4,16 @@
  */
 package com.grapeshot.halfnes;
 
-import com.grapeshot.halfnes.ui.Oscilloscope;
-import com.grapeshot.halfnes.audio.*;
+import com.grapeshot.halfnes.audio.AudioOutInterface;
+import com.grapeshot.halfnes.audio.AudioOutInterfaceFactory;
+import com.grapeshot.halfnes.audio.ExpansionSoundChip;
+import com.grapeshot.halfnes.audio.NoiseTimer;
+import com.grapeshot.halfnes.audio.SquareTimer;
+import com.grapeshot.halfnes.audio.SwingAudioImpl;
+import com.grapeshot.halfnes.audio.Timer;
+import com.grapeshot.halfnes.audio.TriangleTimer;
 import com.grapeshot.halfnes.mappers.Mapper;
+
 import java.util.ArrayList;
 
 public class APU {
@@ -111,9 +118,6 @@ public class APU {
             ai = new SwingAudioImpl(nes, samplerate, tvtype);
         }
 
-        if (PrefsSingleton.get().getBoolean("showScope", false)) {
-            ai = new Oscilloscope(ai);
-        }
         //pick the appropriate pitches and lengths for NTSC or PAL
         switch (tvtype) {
             case NTSC:

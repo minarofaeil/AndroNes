@@ -1,11 +1,11 @@
 package com.grapeshot.halfnes.ui;
 
+import android.graphics.Bitmap;
+
 import com.grapeshot.halfnes.CPURAM;
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.video.RGBRenderer;
 import com.grapeshot.halfnes.video.Renderer;
-
-import java.awt.image.BufferedImage;
 
 /**
  * @author Mitchell Skaggs
@@ -15,7 +15,7 @@ public class HeadlessUI implements GUIInterface {
     private NES nes;
     private Renderer renderer;
     private boolean renderFrames;
-    private BufferedImage lastFrame = null;
+    private Bitmap lastFrame = null;
     private boolean updateImage;
     private PuppetController controller1, controller2;
 
@@ -33,7 +33,7 @@ public class HeadlessUI implements GUIInterface {
         this.nes.loadROM(romToLoad);
     }
 
-    public BufferedImage getLastFrame() {
+    public Bitmap getLastFrame() {
         return lastFrame;
     }
 

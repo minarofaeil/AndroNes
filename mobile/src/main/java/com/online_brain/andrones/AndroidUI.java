@@ -10,32 +10,48 @@ import android.widget.Toast;
 
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.ui.GUIInterface;
+import com.grapeshot.halfnes.video.RGBRenderer;
+import com.grapeshot.halfnes.video.Renderer;
 
 /**
  * @author Mina Rofaeil
  */
 
 public class AndroidUI extends SurfaceView implements GUIInterface {
-	private int frames;
-	private long time;
+//	private int frames;
+//	private long time;
+
+	private final long[] frametimes = new long[60];
+	private int frametimeptr = 0;
+	private double fps;
+	private int frameskip = 0;
+	private Renderer render;
 
 	private NES nes;
 
 	public AndroidUI(Context context) {
 		super(context);
+		init();
 	}
 
 	public AndroidUI(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		init();
 	}
 
 	public AndroidUI(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		init();
 	}
 
 	@TargetApi(21)
 	public AndroidUI(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
+		init();
+	}
+
+	private void init() {
+		render = new RGBRenderer();
 	}
 
 	@Override
@@ -51,13 +67,30 @@ public class AndroidUI extends SurfaceView implements GUIInterface {
 	@Override
 	public void setFrame(int[] frame, int[] bgcolor, boolean dotcrawl) {
 //		Log.d("HalfNESAndroid", "setFrame() is called");
-		frames++;
-		long now = System.currentTimeMillis();
+//		frames++;
+//		long now = System.currentTimeMillis();
+//
+//		if (now - time >= 1000) {
+//			Log.d("HalfNESAndroid", "Frame rate: " + (frames / ((now - time) / 1000.0)));
+//			time = now;
+//			frames = 0;
+//		}
 
-		if (now - time >= 1000) {
-			Log.d("HalfNESAndroid", "Frame rate: " + (frames / ((now - time) / 1000.0)));
-			time = now;
-			frames = 0;
+		frametimes[frametimeptr] = nes.getFrameTime();
+		++frametimeptr;
+		frametimeptr %= frametimes.length;
+
+		if (frametimeptr == 0) {
+			long averageframes = 0;
+			for (long l : frametimes) {
+				averageframes += l;
+			}
+			averageframes /= frametimes.length;
+			fps = 1E9 / averageframes;
+		}
+		if (nes.framecount % (frameskip + 1) == 0) {
+			frame = renderer.render(nextframe, bgcolors, dotcrawl);
+			render();
 		}
 	}
 

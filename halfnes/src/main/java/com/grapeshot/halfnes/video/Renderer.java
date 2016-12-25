@@ -4,9 +4,8 @@
  */
 package com.grapeshot.halfnes.video;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-import java.awt.image.WritableRaster;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 
 /**
  *
@@ -22,16 +21,16 @@ public abstract class Renderer {
      */
     int clip = 8;
     int height = 240 - 2 * clip;
-    BufferedImage[] imgs = {null, null, null, null};
+    Bitmap[] imgs = {null, null, null, null};
     int imgctr = 0;
 
     protected final void init_images() {
         for (int i = 0; i < imgs.length; ++i) {
-            imgs[i] = new BufferedImage(frame_width, height, BufferedImage.TYPE_INT_ARGB_PRE);
+            imgs[i] = Bitmap.createBitmap(frame_width, height, Config.ARGB_8888);
         }
     }
 
-    public abstract BufferedImage render(int[] nespixels, int[] bgcolors, boolean dotcrawl);
+    public abstract Bitmap render(int[] nespixels, int[] bgcolors, boolean dotcrawl);
 
     public void setClip(int i) {
         //how many lines to clip from top + bottom
@@ -39,10 +38,10 @@ public abstract class Renderer {
         height = 240 - 2 * clip;
     }
 
-    public BufferedImage getBufferedImage(int[] frame) {
-        final BufferedImage image = imgs[++imgctr % imgs.length];
-        final WritableRaster raster = image.getRaster();
-        final int[] pixels = ((DataBufferInt) raster.getDataBuffer()).getData();
+    public Bitmap getBufferedImage(int[] frame) {
+        final Bitmap image = imgs[++imgctr % imgs.length];
+        int[] pixels = new int[image.getWidth() * image.getHeight()];
+        image.getPixels(pixels, 0, image.getWidth(), 0, 0, image.getWidth(), image.getHeight());
         System.arraycopy(frame, frame_width * clip, pixels, 0, frame_width * height);
         return image;
     }
